@@ -42,6 +42,15 @@ public class TouchServer2 {
                     .setAccessible(true);
         }
 
+        /**
+         * タッチ操作処理メソッド
+         * @param src
+         * @param act
+         * @param x
+         * @param y
+         * @param id
+         * @throws Exception
+         */
         private void injectMotionEvent(int src, int act, int x, int y, int id) throws Exception{
             int pc = 0;
             int nc = 1;
@@ -140,6 +149,7 @@ public class TouchServer2 {
     private static void Motion(int act, int x, int y, int id){
         try{
             MyInputAgent.getInstance().injectMotionEvent(InputDeviceCompat.SOURCE_TOUCHSCREEN, act, x, y, id);
+            // 動作確認用に標準出力
             System.out.println("act: " + act + " x: " + x + " y: " + y);
         } catch (Exception ex){
             ex.printStackTrace();
@@ -147,15 +157,24 @@ public class TouchServer2 {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        // タッチする座標
+        // 横向き縦向き、スマホの画面解像度などで調整が必要
         int x = 500;
         int y = 2000;
+
+        // タッチダウン
         Motion(MotionEvent.ACTION_DOWN, x, y, 0);
+        // ボールをつかむまで一定時間必要なのでウェイト
         Thread.sleep(200);
+
+        // タッチ箇所をループで徐々に上に移動させていく
         for(int i = 0; i < 10; i++){
             y -= 20 * (i + 1);
             Motion(MotionEvent.ACTION_MOVE, x, y, 0);
             Thread.sleep(15);
         }
+
+        // 最後にタッチアップ
         Motion(MotionEvent.ACTION_UP, x, y, 0);
     }
 }
