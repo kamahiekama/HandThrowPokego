@@ -3,7 +3,6 @@ package com.example.touchprogram;
 import android.hardware.input.InputManager;
 import android.os.SystemClock;
 import android.view.InputEvent;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 
 import androidx.core.view.InputDeviceCompat;
@@ -15,7 +14,7 @@ import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class TouchServer3 {
+public class TouchServer4 {
 
     private static int touchDeviceId = 0;
 
@@ -169,9 +168,6 @@ public class TouchServer3 {
         // 横向き縦向き、スマホの画面解像度などで調整が必要
         int x = 500;
         int y = 2200;
-
-        // 誤動作防止のため、タッチ操作から自動操作開始までウェイトをいれる
-        Thread.sleep(1000);
 
         // タッチダウン
         Motion(MotionEvent.ACTION_DOWN, x, y, 0);
